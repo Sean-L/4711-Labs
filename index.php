@@ -1,11 +1,12 @@
 <?php
-$temp = "Jim";
+$name = "Jim ";
+$what = "geek ";
+$level = "10";
 echo "hi my name is ";
-echo $temp;
-$temp = "geek";
+echo $name;
 echo "I am a ";
-echo $temp;
+echo $what;
 $temp = 10;
 echo "my level is ";
-echo $temp;
+echo $level;
 ?>

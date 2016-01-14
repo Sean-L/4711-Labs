@@ -1,12 +1,16 @@
 <?php
-$name = "Jim ";
+$name = "Jim, ";
 $what = "geek ";
-$level = "10";
-echo "hi my name is ";
+$level = "10 ";
+echo "Hi my name is ";
 echo $name;
 echo "I am a ";
-echo $what;
-$temp = 10;
-echo "my level is ";
 echo $level;
+echo $what;
+
+$hoursworked =10;
+$rate = 12;
+$total = $hoursworked * $rate;
+echo '<br/>';
+echo 'You owe me '.$total;;
 ?>

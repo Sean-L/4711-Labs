@@ -1,46 +1,87 @@
-<?php
+<?php ini_set('display_errors', 'On');
+ error_reporting(E_ALL);
 if (!isset($_GET['board'])){
     echo "Board value not set";
 }else{
     $position = filter_input(INPUT_GET ,'board');
-    $squares = str_split($position);
+    $game = new Game($position);
     
-    echo $squares[0]." ";
-    echo $squares[1]." ";
-    echo $squares[2].'<br/>';
-    echo $squares[3].' ';
-    echo $squares[4].' ';
-    echo $squares[5].'<br/>';
-    echo $squares[6].' ';
-    echo $squares[7].' ';
-    echo $squares[8] .'<br/>';
-    
-    if (winner('x',$squares)){
-        echo 'You win.';
-    }elseif(winner('o', $squares)){
-        echo 'I win.';
+    $game->display();
+    if ($game->winner('x')){
+        echo 'You win. Lucky guesses.';
+        
+    }elseif($game->winner('o')){
+        echo 'I win. Muahahaha!';
     }else{
-        echo 'No winner yet.';
+        echo 'No winner yet, but you are losing';
     }
 }
-function winner($token, $squares){
-    $won = false;
-   for($row = 0; $row<3; $row++){
-       if(($squares[3*$row] === $token) && ($squares[3*$row+1] ===$token)&&($squares[3*$row+2]=== $token)){
-           $won=true;
+
+class Game{
+    var $sq = [' ', ' '];
+        function __construct($position){
+         $this->sq = str_split($position);
+    }
+	function winner($token){
+        for($row = 0; $row<3; $row++){
+            if(($this->sq[$row*3] === $token) && ($this->sq[$row*3+1]) && ($this->sq)){
+                $won = true;
+            }
         }
-   }
-   for($column = 0; $column<3; $column++){
-       if(($squares[$column] === $token) && ($squares[$column+3] ===$token)&&($squares[$column+6]=== $token)){
-           $won=true;
+        for($column = 0; $column<3; $column++){
+            if(($this->sq[$column] === $token) && ($this->sq[$column+3] ===$token)&&($this->sq[$column+6]=== $token)){
+                $won=true;
+            }
         }
-   }
-   if(($squares[0]===$token) && ($squares[4]===$token) &&($squares[8]===$token)){
-       $won=true;
-   }
-   if(($squares[2]===$token) && ($squares[4]===$token) &&($squares[6]===$token)){
-       $won=true;
-   }
-   return $won;
+        if(($this->sq[0]===$token) && ($this->sq[4]===$token) &&($this->sq[8]===$token)){
+            $won=true;
+        }
+        if(($this->sq[2]===$token) && ($this->sq[4]===$token) &&($this->sq[6]===$token)){
+            $won=true;
+        }
+        return $won;
+    }
+    function display(){
+        echo '<table cols="3" style="font-size:large; font-weight:bold">';
+        echo '<tr>';
+        for($pos=0; $pos <9; $pos++){
+            echo $this->show_cell($pos);
+            if($pos % 3 ==2){
+                echo '</tr><tr>';
+            }
+        }
+        echo '</tr>';
+        echo '</table>';
+    }
+    
+    function show_cell($which) {
+        $token = $this->sq[$which];
+        if ($token <> '-'){
+            return '<td>'.$token.'</td>';
+        }
+        $this->newpos = $this->sq;
+        $this->newpos[$which] = 'o';
+        $move = implode($this->newpos);
+        $link = '/Lab1/4711-Labs/index.php/?board='.$move;
+        return '<td><a href="'.$link.'">-</a></td>';
+    }
+    /*
+    function boardcheck(){
+        for($i = 0; $i<9; $i++){
+            if($this->sq[$i] == '-'){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    function turn(){
+        if($this->boardcheck()){
+            $p = rand(0,8);
+            while($this->sq[$p]!= '-'){
+                $p = rand(0,8);
+            }
+         
+        }*/
 }
 ?>

@@ -2,18 +2,18 @@
 if (!isset($_GET['board'])){
     echo "Board value not set";
 }else{
-    $position = $_GET["board"];
-    $squares = chr(str_split($postion));
+    $position = filter_input(INPUT_GET ,'board');
+    $squares = str_split($position);
     
-    echo $squares[0].'<br/>';
-    echo $squares[1].'<br/>';
+    echo $squares[0]." ";
+    echo $squares[1]." ";
     echo $squares[2].'<br/>';
-    echo $squares[3].'<br/>';
-    echo $squares[4].'<br/>';
+    echo $squares[3].' ';
+    echo $squares[4].' ';
     echo $squares[5].'<br/>';
-    echo $squares[6].'<br/>';
-    echo $squares[7].'<br/>';
-    echo $squares[8].'<br/>';
+    echo $squares[6].' ';
+    echo $squares[7].' ';
+    echo $squares[8] .'<br/>';
     
     if (winner('x',$squares)){
         echo 'You win.';

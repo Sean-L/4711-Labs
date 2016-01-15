@@ -25,23 +25,22 @@ if (!isset($_GET['board'])){
 }
 function winner($token, $squares){
     $won = false;
-    if(($squares[0] === $token) && ($squares[1] === $token) && ($squares[2] === $token)){
-        $won = true;
-    }elseif(($squares[0] === $token) &&($squares[3] === $token) && ($squares[6] === $token)){
-        $won = true;
-    }elseif(($squares[0] === $token) &&($squares[4] === $token) && ($squares[8] === $token)){
-        $won = true;
-    }elseif(($squares[1] === $token) &&($squares[4] === $token) && ($squares[7] === $token)){
-        $won = true;
-    }elseif(($squares[2] === $token) &&($squares[4] === $token) && ($squares[6] === $token)){
-        $won = true;
-    }elseif(($squares[2] === $token) &&($squares[5] === $token) && ($squares[8] === $token)){
-        $won = true;
-    }elseif(($squares[3] === $token) &&($squares[4] === $token) && ($squares[5] === $token)){
-        $won = true;
-    }elseif(($squares[6] === $token) &&($squares[7] === $token) && ($squares[8] === $token)){
-        $won = true;
-    }
-    return $won;
+   for($row = 0; $row<3; $row++){
+       if(($squares[3*$row] === $token) && ($squares[3*$row+1] ===$token)&&($squares[3*$row+2]=== $token)){
+           $won=true;
+        }
+   }
+   for($column = 0; $column<3; $column++){
+       if(($squares[$column] === $token) && ($squares[$column+3] ===$token)&&($squares[$column+6]=== $token)){
+           $won=true;
+        }
+   }
+   if(($squares[0]===$token) && ($squares[4]===$token) &&($squares[8]===$token)){
+       $won=true;
+   }
+   if(($squares[2]===$token) && ($squares[4]===$token) &&($squares[6]===$token)){
+       $won=true;
+   }
+   return $won;
 }
 ?>

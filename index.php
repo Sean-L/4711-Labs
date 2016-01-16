@@ -14,7 +14,7 @@ if (!isset($_GET['board'])){
     }elseif($game->winner('x')){
         echo "I win. Muahahaha!<a href=".$new."> Want to lose again?</a>";
     }elseif($game->boardcheck()== false){
-        echo 'Stalemate, but you are still a bigger loser.<a href=".$new."> Are you going to try this time?</a>';
+        echo "Stalemate, but you are still a bigger loser.<a href=".$new."> Are you going to try this time?</a>";
     }
         else{
         echo 'No winner yet, but you are losing';

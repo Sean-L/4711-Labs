@@ -1,18 +1,22 @@
 <?php ini_set('display_errors', 'On');
  error_reporting(E_ALL);
+ $new = '/Lab1/4711-Labs/index.php/?board=---------';
 if (!isset($_GET['board'])){
-    echo "Board value not set";
+    echo "Board value not set <a href=".$new.">Initialize board?</a>";
 }else{
     $position = filter_input(INPUT_GET ,'board');
     $game = new Game($position);
-    
+    $game->turn();
     $game->display();
-    if ($game->winner('x')){
-        echo 'You win. Lucky guesses.';
+    if ($game->winner('o')){
+        echo "You win. Lucky guesses.<a href=".$new."> Do you feel lucky? Punk.</a>";
         
-    }elseif($game->winner('o')){
-        echo 'I win. Muahahaha!';
-    }else{
+    }elseif($game->winner('x')){
+        echo "I win. Muahahaha!<a href=".$new."> Want to lose again?</a>";
+    }elseif($game->boardcheck()== false){
+        echo 'Stalemate, but you are still a bigger loser.<a href=".$new."> Are you going to try this time?</a>';
+    }
+        else{
         echo 'No winner yet, but you are losing';
     }
 }
@@ -22,9 +26,10 @@ class Game{
         function __construct($position){
          $this->sq = str_split($position);
     }
-	function winner($token){
+        function winner($token){
+            $won=false;
         for($row = 0; $row<3; $row++){
-            if(($this->sq[$row*3] === $token) && ($this->sq[$row*3+1]) && ($this->sq)){
+            if(($this->sq[$row*3] === $token) && ($this->sq[($row*3)+1] === $token) && ($this->sq[($row*3)+2])=== $token){
                 $won = true;
             }
         }
@@ -65,7 +70,7 @@ class Game{
         $link = '/Lab1/4711-Labs/index.php/?board='.$move;
         return '<td><a href="'.$link.'">-</a></td>';
     }
-    /*
+    
     function boardcheck(){
         for($i = 0; $i<9; $i++){
             if($this->sq[$i] == '-'){
@@ -81,7 +86,10 @@ class Game{
             while($this->sq[$p]!= '-'){
                 $p = rand(0,8);
             }
-         
-        }*/
+            $this->sq[$p]= 'x';
+            }else{
+                return;
+            }
+        }
 }
 ?>
